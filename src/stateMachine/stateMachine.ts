@@ -17,34 +17,42 @@ export const getFlowMachine = ({
   hasToPassStep2,
   navigation,
 }: GetFlowMachine) =>
-  createMachine<FlowStateMachineContext>({
-    predictableActionArguments: true,
-    id: "FlowForm",
-    initial: "step1",
-    context: {
-      hasToPassStep2,
-    },
-    states: {
-      step1: {
-        on: {
-          NEXT: {
-            target: "step2",
-            actions: [
-              () => {
-                navigation.navigate("Step2Navigator");
-              },
-            ],
+  createMachine<FlowStateMachineContext>(
+    {
+      predictableActionArguments: true,
+      id: "FlowForm",
+      initial: "step1",
+      context: {
+        hasToPassStep2,
+      },
+      states: {
+        step1: {
+          on: {
+            NEXT: {
+              target: "step2",
+              cond: "hasToPassStep2",
+              actions: [
+                () => {
+                  navigation.navigate("Step2Navigator");
+                },
+              ],
+            },
           },
         },
-      },
-      step2: {
-        on: {
-          BACK: {
-            target: "step1",
+        step2: {
+          on: {
+            BACK: {
+              target: "step1",
+            },
           },
         },
+        step3: {},
+        step4: {},
       },
-      step3: {},
-      step4: {},
     },
-  });
+    {
+      guards: {
+        hasToPassStep2: (context) => !!context.hasToPassStep2,
+      },
+    }
+  );
