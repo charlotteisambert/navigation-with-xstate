@@ -1,9 +1,10 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Step21Page } from "./Step2.1Page";
+import { Step22Page } from "./Step2.2Page";
 
-export type Step1StackParamList = { Step21: undefined };
+export type Step2StackParamList = { Step21: undefined; Step22: undefined };
 
-const Step1Stack = createNativeStackNavigator<Step1StackParamList>();
+const Step1Stack = createNativeStackNavigator<Step2StackParamList>();
 
 export const Step2Navigator = () => {
   return (
@@ -11,6 +12,11 @@ export const Step2Navigator = () => {
       <Step1Stack.Screen
         name="Step21"
         component={Step21Page}
+        options={{ headerShown: false }}
+      />
+      <Step1Stack.Screen
+        name="Step22"
+        component={Step22Page}
         options={{ headerShown: false }}
       />
     </Step1Stack.Navigator>
