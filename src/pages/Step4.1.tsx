@@ -3,21 +3,21 @@ import { Button, StyleSheet, Text, View } from "react-native";
 import { StateMachineContext } from "../stateMachine/StateMachineProvider";
 import { FlowStackParamList } from "../navigation/FlowNavigator/FlowNavigator";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { Step2StackParamList } from "../navigation/FlowNavigator/Step2/Step2Navigator";
+import { Step4StackParamList } from "../navigation/FlowNavigator/Step4/Step4Navigator";
 
-export const Step22 = () => {
+export const Step41 = () => {
   const { value, send } = useContext(StateMachineContext);
-  const navigation = useNavigation<NavigationProp<Step2StackParamList>>();
+  const navigation = useNavigation<NavigationProp<Step4StackParamList>>();
 
   const goBack = () => {
+    send("BACK");
     navigation.goBack();
   };
 
   return (
     <View style={styles.container}>
-      <Text>Step 2.2</Text>
+      <Text>Step 4.1</Text>
       <Text>State machine state: {value}</Text>
-      <Button title="next" onPress={() => send("NEXT")} />
       <Button title="back" onPress={goBack} />
     </View>
   );

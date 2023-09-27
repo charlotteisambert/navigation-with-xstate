@@ -62,7 +62,7 @@ export const getFlowMachine = ({
               //   cond: "hasToPassStep3",
               actions: [
                 () => {
-                  navigation.navigate("Step3Navigator");
+                  navigation.navigate("Step4Navigator");
                 },
               ],
             },
@@ -77,7 +77,13 @@ export const getFlowMachine = ({
             ],
           },
         },
-        step4: {},
+        step4: {
+          on: {
+            BACK: {
+              target: "step3",
+            },
+          },
+        },
       },
     },
     {
