@@ -1,9 +1,22 @@
-import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
+import { FC } from "react";
+import { Button, StyleSheet, Text, View } from "react-native";
 
-export const Home = () => (
-  <View>
-    <Text>Open up App.js to start working on your app!</Text>
-    <StatusBar style="auto" />
+interface HomeProps {
+  goToFlow: () => void;
+}
+
+export const Home: FC<HomeProps> = ({ goToFlow }) => (
+  <View style={styles.container}>
+    <Text>Home</Text>
+    <Button onPress={goToFlow} title="Start flow" />
   </View>
 );
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
