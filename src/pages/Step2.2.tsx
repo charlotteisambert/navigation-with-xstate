@@ -1,13 +1,23 @@
 import { useContext } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { StateMachineContext } from "../stateMachine/StateMachineProvider";
-import { FlowStackParamList } from "../navigation/FlowNavigator/FlowNavigator";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { Step2StackParamList } from "../navigation/FlowNavigator/Step2/Step2Navigator";
+import { useMutation } from "react-query";
 
 export const Step22 = () => {
   const { value, send } = useContext(StateMachineContext);
   const navigation = useNavigation<NavigationProp<Step2StackParamList>>();
+
+  const { mutate } = useMutation("postHasToPassStep2", postPassedStep2, {
+    onSuccess: () => {
+      send("NEXT");
+    },
+  });
+
+  const onNextPress = () => {
+    mutate();
+  };
 
   const goBack = () => {
     navigation.goBack();
@@ -17,7 +27,7 @@ export const Step22 = () => {
     <View style={styles.container}>
       <Text>Step 2.2</Text>
       <Text>State machine state: {value}</Text>
-      <Button title="next" onPress={() => send("NEXT")} />
+      <Button title="next" onPress={onNextPress} />
       <Button title="back" onPress={goBack} />
     </View>
   );
