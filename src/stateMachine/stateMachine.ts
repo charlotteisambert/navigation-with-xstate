@@ -1,6 +1,6 @@
-import { createMachine } from "xstate";
 import { FlowStackParamList } from "../navigation/FlowNavigator/FlowNavigator";
 import { NavigationProp, StackActions } from "@react-navigation/native";
+import { AnyEventObject, assign, createMachine } from "xstate";
 
 export type FlowStateMachineContext = {
   hasToPassStep2: boolean;
@@ -15,6 +15,11 @@ type GetFlowMachine = {
   hasToPassStep3: boolean;
 };
 
+const updateStep2 = assign<FlowStateMachineContext, AnyEventObject>({
+  hasToPassStep2: (_: FlowStateMachineContext, event: AnyEventObject) =>
+    event.hasToPassStep2,
+});
+
 export const getFlowMachine = ({
   navigation,
   hasToPassStep2,
@@ -28,6 +33,11 @@ export const getFlowMachine = ({
       context: {
         hasToPassStep2,
         hasToPassStep3,
+      },
+      on: {
+        STEP_2_CHANGE: {
+          actions: updateStep2,
+        },
       },
       states: {
         step1: {
@@ -70,7 +80,11 @@ export const getFlowMachine = ({
                 cond: "hasToPassStep3",
                 actions: [
                   () => {
-                    navigation.navigate("Step3Navigator");
+                    navigation.dispatch({
+                      ...StackActions.replace("Step3Navigator", {
+                        screen: "Step2Navigator",
+                      }),
+                    });
                   },
                 ],
               },
@@ -78,7 +92,11 @@ export const getFlowMachine = ({
                 target: "step4",
                 actions: [
                   () => {
-                    navigation.navigate("Step4Navigator");
+                    navigation.dispatch({
+                      ...StackActions.replace("Step4Navigator", {
+                        screen: "Step2Navigator",
+                      }),
+                    });
                   },
                 ],
               },
@@ -129,9 +147,15 @@ export const getFlowMachine = ({
       },
     },
     {
+      actions: {
+        updateStep2,
+      },
       guards: {
-        hasToPassStep2: (context) => !!context.hasToPassStep2,
-        hasToPassStep3: (context) => !!context.hasToPassStep3,
+        hasToPassStep2: (context) => {
+          console.log("context.hasToPassStep2", context.hasToPassStep2);
+          return context.hasToPassStep2;
+        },
+        hasToPassStep3: (context) => context.hasToPassStep3,
       },
     }
   );

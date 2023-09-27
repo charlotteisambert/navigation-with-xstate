@@ -3,7 +3,7 @@ let hasToPassStep2 = true;
 export const getHasToPassStep2 = (): Promise<boolean> =>
   new Promise((resolve) => {
     setTimeout(() => {
-      return resolve(false);
+      return resolve(hasToPassStep2);
     }, 500);
   });
 

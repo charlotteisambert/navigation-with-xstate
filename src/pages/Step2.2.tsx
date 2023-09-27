@@ -4,6 +4,7 @@ import { StateMachineContext } from "../stateMachine/StateMachineProvider";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { Step2StackParamList } from "../navigation/FlowNavigator/Step2/Step2Navigator";
 import { useMutation } from "react-query";
+import { postPassedStep2 } from "../queries";
 
 export const Step22 = () => {
   const { value, send } = useContext(StateMachineContext);
@@ -11,7 +12,13 @@ export const Step22 = () => {
 
   const { mutate } = useMutation("postHasToPassStep2", postPassedStep2, {
     onSuccess: () => {
-      send("NEXT");
+      send([
+        {
+          type: "STEP_2_CHANGE",
+          hasToPassStep2: false,
+        },
+        "NEXT",
+      ]);
     },
   });
 
