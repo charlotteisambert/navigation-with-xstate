@@ -41,12 +41,42 @@ export const getFlowMachine = ({
         },
         step2: {
           on: {
+            NEXT: {
+              target: "step3",
+              //   cond: "hasToPassStep3",
+              actions: [
+                () => {
+                  navigation.navigate("Step3Navigator");
+                },
+              ],
+            },
             BACK: {
               target: "step1",
             },
           },
         },
-        step3: {},
+        step3: {
+          on: {
+            NEXT: {
+              target: "step4",
+              //   cond: "hasToPassStep3",
+              actions: [
+                () => {
+                  navigation.navigate("Step3Navigator");
+                },
+              ],
+            },
+            BACK: [
+              {
+                target: "step2",
+                cond: "hasToPassStep2",
+              },
+              {
+                target: "step1",
+              },
+            ],
+          },
+        },
         step4: {},
       },
     },

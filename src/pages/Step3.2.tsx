@@ -4,7 +4,7 @@ import { StateMachineContext } from "../stateMachine/StateMachineProvider";
 import { FlowStackParamList } from "../navigation/FlowNavigator/FlowNavigator";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 
-export const Step22 = () => {
+export const Step32 = () => {
   const { value, send } = useContext(StateMachineContext);
   const navigation = useNavigation<NavigationProp<FlowStackParamList>>();
 
@@ -14,9 +14,8 @@ export const Step22 = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Step 2.2</Text>
+      <Text>Step 3.2</Text>
       <Text>State machine state: {value}</Text>
-      <Button title="next" onPress={() => send("NEXT")} />
       <Button title="back" onPress={goBack} />
     </View>
   );
