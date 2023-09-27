@@ -23,15 +23,17 @@ export const StateMachineContext = createContext<{
 interface StateMachineMachineProviderProps {
   children: ReactNode;
   hasToPassStep2: boolean;
+  hasToPassStep3: boolean;
 }
 
 export const StateMachineMachineProvider = ({
   children,
   hasToPassStep2,
+  hasToPassStep3,
 }: StateMachineMachineProviderProps) => {
   const navigation = useNavigation<NavigationProp<FlowStackParamList>>();
   const [{ value }, send] = useMachine(() =>
-    getFlowMachine({ navigation, hasToPassStep2 })
+    getFlowMachine({ navigation, hasToPassStep2, hasToPassStep3 })
   );
 
   return (

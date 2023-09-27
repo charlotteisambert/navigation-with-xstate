@@ -16,7 +16,7 @@ const FlowStack = createNativeStackNavigator<FlowStackParamList>();
 
 export const FlowNavigator = () => {
   return (
-    <StateMachineMachineProvider hasToPassStep2={true}>
+    <StateMachineMachineProvider hasToPassStep2={true} hasToPassStep3={true}>
       <FlowStack.Navigator initialRouteName="Step1Navigator">
         <FlowStack.Screen
           name="Step1Navigator"
