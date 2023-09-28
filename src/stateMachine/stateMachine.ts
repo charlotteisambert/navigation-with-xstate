@@ -20,6 +20,11 @@ const updateStep2 = assign<FlowStateMachineContext, AnyEventObject>({
     event.hasToPassStep2,
 });
 
+const updateStep3 = assign<FlowStateMachineContext, AnyEventObject>({
+  hasToPassStep3: (_: FlowStateMachineContext, event: AnyEventObject) =>
+    event.hasToPassStep3,
+});
+
 export const getFlowMachine = ({
   navigation,
   hasToPassStep2,
@@ -37,6 +42,9 @@ export const getFlowMachine = ({
       on: {
         STEP_2_CHANGE: {
           actions: updateStep2,
+        },
+        STEP_3_CHANGE: {
+          actions: updateStep3,
         },
       },
       states: {
@@ -111,9 +119,12 @@ export const getFlowMachine = ({
             NEXT: {
               target: "step4",
               actions: [
-                () => {
-                  navigation.navigate("Step4Navigator");
-                },
+                () =>
+                  navigation.dispatch({
+                    ...StackActions.replace("Step4Navigator", {
+                      screen: "Step3Navigator",
+                    }),
+                  }),
               ],
             },
             BACK: [
