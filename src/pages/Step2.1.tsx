@@ -16,7 +16,6 @@ export const Step21 = () => {
 
   const goBack = () => {
     send("BACK")
-    navigation.goBack();
   };
 
   return (

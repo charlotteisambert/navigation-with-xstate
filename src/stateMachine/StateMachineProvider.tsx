@@ -31,9 +31,8 @@ export const StateMachineMachineProvider = ({
   hasToPassStep2,
   hasToPassStep3,
 }: StateMachineMachineProviderProps) => {
-  const navigation = useNavigation<NavigationProp<FlowStackParamList>>();
   const [{ value }, send] = useMachine(() =>
-    getFlowMachine({ navigation, hasToPassStep2, hasToPassStep3 })
+    getFlowMachine({ hasToPassStep2, hasToPassStep3 })
   );
 
   return (
