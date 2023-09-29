@@ -16,8 +16,8 @@ export const Step41 = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Step 4.1</Text>
-      <Text>State machine state: {value}</Text>
+      <Text style={{ fontSize:30}}>Step 4.1</Text>
+      <Text style={{ fontSize:30}}>State machine state: {value}</Text>
       <Button title="back" onPress={goBack} />
     </View>
   );
