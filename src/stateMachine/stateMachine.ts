@@ -127,15 +127,9 @@ export const getFlowMachine = ({
                   }),
               ],
             },
-            BACK: [
-              {
-                target: "step2",
-                cond: "hasToPassStep2",
-              },
-              {
-                target: "step1",
-              },
-            ],
+            BACK: {
+              target: "step1",
+            },
           },
         },
         step4: {
@@ -144,10 +138,6 @@ export const getFlowMachine = ({
               {
                 target: "step3",
                 cond: "hasToPassStep3",
-              },
-              {
-                target: "step2",
-                cond: "hasToPassStep2",
               },
               {
                 target: "step1",
