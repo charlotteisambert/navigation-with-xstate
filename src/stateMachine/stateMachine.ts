@@ -127,28 +127,14 @@ export const getFlowMachine = ({
                   }),
               ],
             },
-            BACK: [
-              {
-                target: "step2",
-                cond: "hasToPassStep2",
-              },
-              {
-                target: "step1",
-              },
-            ],
+            BACK: {
+              target: "step1",
+            },
           },
         },
         step4: {
           on: {
             BACK: [
-              {
-                target: "step3",
-                cond: "hasToPassStep3",
-              },
-              {
-                target: "step2",
-                cond: "hasToPassStep2",
-              },
               {
                 target: "step1",
               },
@@ -158,9 +144,6 @@ export const getFlowMachine = ({
       },
     },
     {
-      actions: {
-        updateStep2,
-      },
       guards: {
         hasToPassStep2: (context) => {
           console.log("context.hasToPassStep2", context.hasToPassStep2);

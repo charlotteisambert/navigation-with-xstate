@@ -3,28 +3,10 @@ import { Button, StyleSheet, Text, View } from "react-native";
 import { StateMachineContext } from "../stateMachine/StateMachineProvider";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { Step3StackParamList } from "../navigation/FlowNavigator/Step3/Step3Navigator";
-import { postPassedStep3 } from "../queries";
-import { useMutation } from "react-query";
 
 export const Step32 = () => {
   const { value, send } = useContext(StateMachineContext);
   const navigation = useNavigation<NavigationProp<Step3StackParamList>>();
-
-  const { mutate } = useMutation("postHasToPassStep3", postPassedStep3, {
-    onSuccess: () => {
-      send([
-        {
-          type: "STEP_3_CHANGE",
-          hasToPassStep3: false,
-        },
-        "NEXT",
-      ]);
-    },
-  });
-
-  const onNextPress = () => {
-    mutate();
-  };
 
   const goBack = () => {
     navigation.goBack();
@@ -34,7 +16,7 @@ export const Step32 = () => {
     <View style={styles.container}>
       <Text>Step 3.2</Text>
       <Text>State machine state: {value}</Text>
-      <Button title="next" onPress={onNextPress} />
+      <Button title="next" onPress={()=>send("NEXT")} />
       <Button title="back" onPress={goBack} />
     </View>
   );
