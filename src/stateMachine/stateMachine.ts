@@ -1,5 +1,3 @@
-import { FlowStackParamList } from "../navigation/FlowNavigator/FlowNavigator";
-import { NavigationProp, StackActions } from "@react-navigation/native";
 import { AnyEventObject, assign, createMachine } from "xstate";
 
 export type FlowStateMachineContext = {
@@ -10,7 +8,6 @@ export type FlowStateMachineContext = {
 export type FlowStates = "step1" | "step2" | "step3" | "step4";
 
 type GetFlowMachine = {
-  navigation: NavigationProp<FlowStackParamList>;
   hasToPassStep2: boolean;
   hasToPassStep3: boolean;
 };
@@ -26,7 +23,6 @@ const updateStep3 = assign<FlowStateMachineContext, AnyEventObject>({
 });
 
 export const getFlowMachine = ({
-  navigation,
   hasToPassStep2,
   hasToPassStep3,
 }: GetFlowMachine) =>
@@ -54,28 +50,13 @@ export const getFlowMachine = ({
               {
                 target: "step2",
                 cond: "hasToPassStep2",
-                actions: [
-                  () => {
-                    navigation.navigate("Step2Navigator");
-                  },
-                ],
               },
               {
                 target: "step3",
                 cond: "hasToPassStep3",
-                actions: [
-                  () => {
-                    navigation.navigate("Step3Navigator");
-                  },
-                ],
               },
               {
                 target: "step4",
-                actions: [
-                  () => {
-                    navigation.navigate("Step4Navigator");
-                  },
-                ],
               },
             ],
           },
@@ -86,27 +67,9 @@ export const getFlowMachine = ({
               {
                 target: "step3",
                 cond: "hasToPassStep3",
-                actions: [
-                  () => {
-                    navigation.dispatch({
-                      ...StackActions.replace("Step3Navigator", {
-                        screen: "Step2Navigator",
-                      }),
-                    });
-                  },
-                ],
               },
               {
                 target: "step4",
-                actions: [
-                  () => {
-                    navigation.dispatch({
-                      ...StackActions.replace("Step4Navigator", {
-                        screen: "Step2Navigator",
-                      }),
-                    });
-                  },
-                ],
               },
             ],
             BACK: {
@@ -118,14 +81,6 @@ export const getFlowMachine = ({
           on: {
             NEXT: {
               target: "step4",
-              actions: [
-                () =>
-                  navigation.dispatch({
-                    ...StackActions.replace("Step4Navigator", {
-                      screen: "Step3Navigator",
-                    }),
-                  }),
-              ],
             },
             BACK: {
               target: "step1",
