@@ -9,7 +9,13 @@ import { Step3Navigator } from "./Step3/Step3Navigator";
 import { Step4Navigator } from "./Step4/Step4Navigator";
 import { StateMachineProviderWrapper } from "../../stateMachine/StateMachineProviderWrapper";
 import React, { useContext, useEffect } from "react";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import {
+  NavigationProp,
+  StackRouter,
+  useNavigation,
+} from "@react-navigation/native";
+import { createFlowNavigator } from "./createFlowNavigator";
+import Step11 from "../../pages/Step1.1";
 
 export type FlowStackParamList = {
   Step1Navigator: undefined;
@@ -18,7 +24,7 @@ export type FlowStackParamList = {
   Step4Navigator: undefined;
 };
 
-const FlowStack = createNativeStackNavigator<FlowStackParamList>();
+const FlowStack = createFlowNavigator<FlowStackParamList>();
 
 export const FlowNavigator = () => {
   return (
@@ -37,13 +43,6 @@ const PageNameByStep = {
 
 export const FlowPages = () => {
   const { value } = useContext(StateMachineContext);
-
-  const navigation = useNavigation<NavigationProp<FlowStackParamList>>();
-
-  useEffect(() => {
-    navigation.navigate(PageNameByStep[value]);
-  }, [value]);
-
   return (
     <FlowStack.Navigator initialRouteName="Step1Navigator">
       <FlowStack.Screen
