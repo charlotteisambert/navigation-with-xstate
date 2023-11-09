@@ -1,7 +1,6 @@
 import { Button, StyleSheet, Text, View } from "react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { Step3StackParamList } from "../navigation/FlowNavigator/Step3/Step3Navigator";
-import { send } from "xstate";
 import React from "react";
 
 export const Step31 = () => {
@@ -12,13 +11,12 @@ export const Step31 = () => {
   };
 
   const goBack = () => {
-    send("BACK");
-    navigation.goBack();
+    navigation.dispatch({ type: "BACK" });
   };
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize:30}}>Step 3.1</Text>
+      <Text style={{ fontSize: 30 }}>Step 3.1</Text>
       <Button title="next" onPress={goToNext} />
       <Button title="back" onPress={goBack} />
     </View>

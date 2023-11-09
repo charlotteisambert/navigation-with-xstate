@@ -35,7 +35,25 @@ const FlowRouter = (options) => {
             {
               type: "NAVIGATE",
               source: action.source,
-              payload: { name: state.routeNames[state.index + 1] },
+              payload: { name: nextRouteName },
+            },
+            options
+          );
+
+        case "BACK":
+          const previousRouteName = state.routeNames[state.index - 1];
+
+          if(!previousRouteName){
+            console.error('COULD NOT FIND PREVIOUS SCREEN FOR CURRENT ROUTE');
+            return;
+          }
+
+          return router.getStateForAction(
+            state,
+            {
+              type: "NAVIGATE",
+              source: action.source,
+              payload: { name: previousRouteName },
             },
             options
           );

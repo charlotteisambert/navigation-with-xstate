@@ -20,7 +20,7 @@ export const Step22 = () => {
   };
 
   const goBack = () => {
-    navigation.goBack();
+    navigation.goBack()
   };
 
   return (
