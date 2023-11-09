@@ -1,18 +1,10 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
 import { Step1Navigator } from "./Step1Navigator/Step1Navigator";
 import { Step2Navigator } from "./Step2/Step2Navigator";
-import { StateMachineMachineProvider } from "../../stateMachine/StateMachineProvider";
 import { Step3Navigator } from "./Step3/Step3Navigator";
 import { Step4Navigator } from "./Step4/Step4Navigator";
 import { StateMachineProviderWrapper } from "../../stateMachine/StateMachineProviderWrapper";
-import React, { useContext, useEffect } from "react";
-import {
-  NavigationProp,
-  StackRouter,
-  useNavigation,
-} from "@react-navigation/native";
 import { createFlowNavigator } from "./createFlowNavigator";
-import Step11 from "../../pages/Step1.1";
 
 export type FlowStackParamList = {
   Step1Navigator: undefined;

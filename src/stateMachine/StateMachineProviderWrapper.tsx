@@ -1,5 +1,4 @@
 import { FC, ReactNode } from "react";
-import { StateMachineMachineProvider } from "./StateMachineProvider";
 import { useQuery } from "react-query";
 import { ActivityIndicator, View } from "react-native";
 
@@ -25,12 +24,6 @@ export const StateMachineProviderWrapper: FC<
     return <ActivityIndicator />;
   }
 
-  return (
-    <StateMachineMachineProvider
-      hasToPassStep2={hasToPassStep2}
-      hasToPassStep3={hasToPassStep3}
-    >
-      {children}
-    </StateMachineMachineProvider>
-  );
+  return <>{children}</>
+  ;
 };
