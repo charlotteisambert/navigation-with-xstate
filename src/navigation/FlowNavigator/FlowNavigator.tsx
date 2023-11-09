@@ -5,6 +5,14 @@ import { StateMachineMachineProvider } from "../../stateMachine/StateMachineProv
 import { Step3Navigator } from "./Step3/Step3Navigator";
 import { Step4Navigator } from "./Step4/Step4Navigator";
 import { StateMachineProviderWrapper } from "../../stateMachine/StateMachineProviderWrapper";
+import React, { useContext, useEffect } from "react";
+import {
+  NavigationProp,
+  StackRouter,
+  useNavigation,
+} from "@react-navigation/native";
+import { createFlowNavigator } from "./createFlowNavigator";
+import Step11 from "../../pages/Step1.1";
 
 export type FlowStackParamList = {
   Step1Navigator: undefined;
@@ -13,7 +21,7 @@ export type FlowStackParamList = {
   Step4Navigator: undefined;
 };
 
-const FlowStack = createNativeStackNavigator<FlowStackParamList>();
+const FlowStack = createFlowNavigator<FlowStackParamList>();
 
 export const FlowNavigator = () => {
   return (

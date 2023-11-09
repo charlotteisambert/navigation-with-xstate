@@ -9,16 +9,11 @@ import { postPassedStep2 } from "../queries";
 export const Step22 = () => {
   const { value, send } = useContext(StateMachineContext);
   const navigation = useNavigation<NavigationProp<Step2StackParamList>>();
+  const { dispatch } = useNavigation();
 
   const { mutate } = useMutation("postHasToPassStep2", postPassedStep2, {
     onSuccess: () => {
-      send([
-        {
-          type: "STEP_2_CHANGE",
-          hasToPassStep2: false,
-        },
-        "NEXT",
-      ]);
+      dispatch({ type: "NEXT" });
     },
   });
 
@@ -32,8 +27,8 @@ export const Step22 = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize:30}}>Step 2.2</Text>
-      <Text style={{ fontSize:30}}>State machine state: {value}</Text>
+      <Text style={{ fontSize: 30 }}>Step 2.2</Text>
+      <Text style={{ fontSize: 30 }}>State machine state: {value}</Text>
       <Button title="next" onPress={onNextPress} />
       <Button title="back" onPress={goBack} />
     </View>
