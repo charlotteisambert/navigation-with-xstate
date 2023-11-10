@@ -4,11 +4,12 @@ import { Step4StackParamList } from "../navigation/FlowNavigator/Step4/Step4Navi
 import { useFlow } from "../navigation/FlowNavigator/createFlowNavigator";
 
 export const Step41 = () => {
-  const { canGoNextStep } = useFlow();
+  const { canGoNextStep, progress } = useFlow();
 
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 30 }}>Step 4.1</Text>
+      <Text style={{ fontSize: 30 }}>progress: {progress}</Text>
       <Text style={{ fontSize: 30 }}>canGoNextStep: {`${canGoNextStep}`}</Text>
     </View>
   );
