@@ -12,7 +12,7 @@ import { FlowStackParamList } from "../navigation/FlowNavigator/FlowNavigator";
 export const Step21 = () => {
   const { navigate } =
     useNavigation<NativeStackNavigationProp<Step2StackParamList>>();
-  const { goPreviousStep } = useFlow();
+  const { goPreviousStep, quitFlow } = useFlow();
 
   const goToNext = () => {
     navigate("Step22");
@@ -33,6 +33,7 @@ export const Step21 = () => {
         canGoPreviousStep: {`${canGoPreviousStep}`}
       </Text>
       <Text style={{ fontSize: 30 }}>canGoNextStep: {`${canGoNextStep}`}</Text>
+      <Button title="quit flow" onPress={quitFlow} />
       <Button title="next" onPress={goToNext} />
       <Button title="back" onPress={goBack} />
     </View>

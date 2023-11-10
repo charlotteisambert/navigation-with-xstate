@@ -44,6 +44,7 @@ export type FlowNavigationProp<
 export type FlowActionHelpers<ParamList extends ParamListBase> = {
   goNextStep(): void;
   goPreviousStep(): void;
+  quitFlow(): void;
 } & StackActionHelpers<ParamList>;
 
 const FlowRouter = (options) => {
@@ -102,6 +103,9 @@ const FlowRouter = (options) => {
       goPreviousStep: () => {
         return { type: "BACK_STEP" };
       },
+      quitFlow: () => {
+        return { type: "GO_BACK" };
+      },
     },
   };
 };
@@ -129,11 +133,17 @@ function FlowNavigator({
       screenOptions,
     });
 
-  const { goPreviousStep, goNextStep } = navigation;
+  const { goPreviousStep, goNextStep, quitFlow, goBack, getParent } =
+    navigation;
 
   return (
     <FlowContext.Provider
-      value={{ navigationState: state, goPreviousStep, goNextStep }}
+      value={{
+        navigationState: state,
+        goPreviousStep,
+        goNextStep,
+        getParent,
+      }}
     >
       <NavigationContent>
         <NativeStackView
@@ -158,18 +168,25 @@ export interface FlowContext {
   navigationState: NavigationState;
   goPreviousStep: () => void;
   goNextStep: () => void;
+  getParent: () => NavigationProp<ParamListBase>
 }
 
 export const FlowContext = React.createContext<FlowContext>({
   navigationState: null,
   goPreviousStep: () => {},
   goNextStep: () => {},
+  getParent: null,
 });
 
 export const useFlowContext = () => React.useContext(FlowContext);
 
 export const useFlow = () => {
-  const { navigationState, goNextStep, goPreviousStep } = useFlowContext();
+  const {
+    navigationState,
+    goNextStep,
+    goPreviousStep,
+    getParent,
+  } = useFlowContext();
 
   return {
     currentStep: navigationState.routeNames[navigationState.index],
@@ -179,5 +196,6 @@ export const useFlow = () => {
       navigationState.index !== navigationState.routeNames.length - 1,
     goNextStep,
     goPreviousStep,
+    quitFlow: () => getParent().goBack(),
   };
 };
