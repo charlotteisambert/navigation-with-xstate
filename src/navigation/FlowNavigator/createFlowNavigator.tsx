@@ -1,6 +1,7 @@
 import {
   createNavigatorFactory,
   NavigationProp,
+  NavigationState,
   ParamListBase,
   RouteProp,
   StackActionHelpers,
@@ -129,14 +130,16 @@ function FlowNavigator({
     });
 
   return (
-    <NavigationContent>
-      <NativeStackView
-        {...rest}
-        state={state}
-        navigation={navigation}
-        descriptors={descriptors}
-      />
-    </NavigationContent>
+    <FlowContext.Provider value={{ navigationState: state }}>
+      <NavigationContent>
+        <NativeStackView
+          {...rest}
+          state={state}
+          navigation={navigation}
+          descriptors={descriptors}
+        />
+      </NavigationContent>
+    </FlowContext.Provider>
   );
 }
 
@@ -146,3 +149,23 @@ export const createFlowNavigator = createNavigatorFactory<
   NativeStackNavigationEventMap,
   typeof FlowNavigator
 >(FlowNavigator);
+
+export interface FlowContext {
+  navigationState: NavigationState;
+}
+
+export const FlowContext = React.createContext<FlowContext>({
+  navigationState: null,
+});
+
+export const useFlowContext = () => React.useContext(FlowContext);
+
+export const useFlow = () => {
+  const { navigationState } = useFlowContext();
+
+  return {
+    canGoPreviousStep: navigationState.index !== 0,
+    canGoNextStep:
+      navigationState.index !== navigationState.routeNames.length - 1,
+  };
+};
