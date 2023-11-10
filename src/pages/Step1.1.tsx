@@ -9,12 +9,13 @@ import { FlowStackParamList } from "../navigation/FlowNavigator/FlowNavigator";
 export default function Step11() {
   const { goNextStep } =
     useNavigation<FlowNavigationProp<FlowStackParamList>>();
-  const { canGoPreviousStep, canGoNextStep } = useFlow();
+  const { canGoPreviousStep, canGoNextStep, currentStep } = useFlow();
 
   return (
     <View style={styles.container}>
       <TextInput style={{ backgroundColor: "#DDDDDD", width: "70%" }} />
       <Text style={{ fontSize: 30 }}>Step 1.1</Text>
+      <Text style={{ fontSize: 30 }}>CurrentStep: {currentStep}</Text>
       <Text style={{ fontSize: 30 }}>canGoPreviousStep: {`${canGoPreviousStep}`}</Text>
       <Text style={{ fontSize: 30 }}>canGoNextStep: {`${canGoNextStep}`}</Text>
       <Button title="next" onPress={() => goNextStep()} />

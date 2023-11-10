@@ -164,6 +164,7 @@ export const useFlow = () => {
   const { navigationState } = useFlowContext();
 
   return {
+    currentStep: navigationState.routeNames[navigationState.index],
     canGoPreviousStep: navigationState.index !== 0,
     canGoNextStep:
       navigationState.index !== navigationState.routeNames.length - 1,

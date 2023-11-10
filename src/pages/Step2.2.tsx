@@ -30,12 +30,13 @@ export const Step22 = () => {
     goBack();
   };
 
-  const { canGoPreviousStep, canGoNextStep } = useFlow();
+  const { canGoPreviousStep, canGoNextStep, currentStep } = useFlow();
 
 
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 30 }}>Step 2.2</Text>
+      <Text style={{ fontSize: 30 }}>CurrentStep: {currentStep}</Text>
       <Text style={{ fontSize: 30 }}>canGoPreviousStep: {`${canGoPreviousStep}`}</Text>
       <Text style={{ fontSize: 30 }}>canGoNextStep: {`${canGoNextStep}`}</Text>
       <Button title="next" onPress={onNextPress} />
