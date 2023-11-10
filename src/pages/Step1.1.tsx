@@ -7,7 +7,14 @@ import {
 import { FlowStackParamList } from "../navigation/FlowNavigator/FlowNavigator";
 
 export default function Step11() {
-  const { canGoPreviousStep, canGoNextStep, currentStep, progress, goNextStep  } = useFlow();
+  const {
+    canGoPreviousStep,
+    canGoNextStep,
+    currentStep,
+    progress,
+    goNextStep,
+    quitFlow,
+  } = useFlow();
 
   return (
     <View style={styles.container}>
@@ -15,8 +22,11 @@ export default function Step11() {
       <Text style={{ fontSize: 30 }}>Step 1.1</Text>
       <Text style={{ fontSize: 30 }}>progress: {progress}</Text>
       <Text style={{ fontSize: 30 }}>CurrentStep: {currentStep}</Text>
-      <Text style={{ fontSize: 30 }}>canGoPreviousStep: {`${canGoPreviousStep}`}</Text>
+      <Text style={{ fontSize: 30 }}>
+        canGoPreviousStep: {`${canGoPreviousStep}`}
+      </Text>
       <Text style={{ fontSize: 30 }}>canGoNextStep: {`${canGoNextStep}`}</Text>
+      <Button title="quit flow" onPress={quitFlow} />
       <Button title="next" onPress={() => goNextStep()} />
     </View>
   );
