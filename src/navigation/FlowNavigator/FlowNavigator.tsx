@@ -5,6 +5,8 @@ import { Step3Navigator } from "./Step3/Step3Navigator";
 import { Step4Navigator } from "./Step4/Step4Navigator";
 import { StateMachineProviderWrapper } from "../../stateMachine/StateMachineProviderWrapper";
 import { FlowScreenProps, createFlowNavigator } from "./createFlowNavigator";
+import { useQuery } from "react-query";
+import { getHasToPassStep2, getHasToPassStep3 } from "../../queries";
 
 export type FlowStackParamList = {
   Step1Navigator: undefined;
@@ -23,12 +25,20 @@ export const FlowNavigator = () => {
   );
 };
 
-
 export type AuthenticationNavigatorStackScreenProps<
   Screen extends keyof FlowStackParamList
 > = FlowScreenProps<FlowStackParamList, Screen>;
 
 export const FlowPages = () => {
+  const { data: hasToPassStep2, isLoading: isStep2Loading } = useQuery(
+    "hasToPassStep2",
+    getHasToPassStep2
+  );
+  const { data: hasToPassStep3, isLoading: isStep3Loading } = useQuery(
+    "hasToPassStep3",
+    getHasToPassStep3
+  );
+
   return (
     <FlowStack.Navigator initialRouteName="Step1Navigator">
       <FlowStack.Screen
@@ -36,16 +46,20 @@ export const FlowPages = () => {
         component={Step1Navigator}
         options={{ headerShown: false }}
       />
-      <FlowStack.Screen
-        name="Step2Navigator"
-        component={Step2Navigator}
-        options={{ headerShown: false }}
-      />
-      <FlowStack.Screen
-        name="Step3Navigator"
-        component={Step3Navigator}
-        options={{ headerShown: false }}
-      />
+      {hasToPassStep2 && (
+        <FlowStack.Screen
+          name="Step2Navigator"
+          component={Step2Navigator}
+          options={{ headerShown: false }}
+        />
+      )}
+      {hasToPassStep3 && (
+        <FlowStack.Screen
+          name="Step3Navigator"
+          component={Step3Navigator}
+          options={{ headerShown: false }}
+        />
+      )}
       <FlowStack.Screen
         name="Step4Navigator"
         component={Step4Navigator}
