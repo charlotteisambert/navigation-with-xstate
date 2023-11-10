@@ -3,10 +3,10 @@ import { Step1Navigator } from "./Step1Navigator/Step1Navigator";
 import { Step2Navigator } from "./Step2/Step2Navigator";
 import { Step3Navigator } from "./Step3/Step3Navigator";
 import { Step4Navigator } from "./Step4/Step4Navigator";
-import { StateMachineProviderWrapper } from "../../stateMachine/StateMachineProviderWrapper";
 import { FlowScreenProps, createFlowNavigator } from "./createFlowNavigator";
 import { useQuery } from "react-query";
 import { getHasToPassStep2, getHasToPassStep3 } from "../../queries";
+import { ActivityIndicator } from "react-native";
 
 export type FlowStackParamList = {
   Step1Navigator: undefined;
@@ -17,19 +17,11 @@ export type FlowStackParamList = {
 
 const FlowStack = createFlowNavigator<FlowStackParamList>();
 
-export const FlowNavigator = () => {
-  return (
-    <StateMachineProviderWrapper>
-      <FlowPages />
-    </StateMachineProviderWrapper>
-  );
-};
-
 export type AuthenticationNavigatorStackScreenProps<
   Screen extends keyof FlowStackParamList
 > = FlowScreenProps<FlowStackParamList, Screen>;
 
-export const FlowPages = () => {
+export const FlowNavigator = () => {
   const { data: hasToPassStep2, isLoading: isStep2Loading } = useQuery(
     "hasToPassStep2",
     getHasToPassStep2
@@ -38,6 +30,10 @@ export const FlowPages = () => {
     "hasToPassStep3",
     getHasToPassStep3
   );
+
+  if (isStep2Loading || isStep3Loading) {
+    return <ActivityIndicator />;
+  }
 
   return (
     <FlowStack.Navigator initialRouteName="Step1Navigator">
