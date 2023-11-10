@@ -4,7 +4,6 @@ import { FlowNavigationProp } from "../navigation/FlowNavigator/createFlowNaviga
 import { FlowStackParamList } from "../navigation/FlowNavigator/FlowNavigator";
 
 export default function Step11() {
-
   const { goNextStep } = useNavigation<FlowNavigationProp<FlowStackParamList>>();
 
   return (

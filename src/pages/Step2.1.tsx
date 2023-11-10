@@ -3,16 +3,20 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { Step2StackParamList } from "../navigation/FlowNavigator/Step2/Step2Navigator";
 import React from "react";
 import { FlowNavigationProp } from "../navigation/FlowNavigator/createFlowNavigator";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { FlowStackParamList } from "../navigation/FlowNavigator/FlowNavigator";
 
 export const Step21 = () => {
-  const navigation = useNavigation<FlowNavigationProp<Step2StackParamList>>();
-
+  const { goPreviousStep, navigate } = useNavigation<
+    FlowNavigationProp<FlowStackParamList> &
+      NativeStackNavigationProp<Step2StackParamList>
+  >();
   const goToNext = () => {
-    navigation.navigate("Step22");
+    navigate("Step22");
   };
 
   const goBack = () => {
-    navigation.goPreviousStep()
+    goPreviousStep();
   };
 
   return (
