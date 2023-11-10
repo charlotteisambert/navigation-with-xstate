@@ -15,6 +15,7 @@ import {
 import { NativeStackNavigatorProps } from "@react-navigation/native-stack/lib/typescript/src/types";
 import * as React from "react";
 
+
 const FlowRouter = (options) => {
   const router = StackRouter(options);
 
@@ -22,10 +23,10 @@ const FlowRouter = (options) => {
     ...router,
     getStateForAction(state, action, options) {
       switch (action.type) {
-        case "NEXT":
-          const nextRouteName = state.routeNames[state.index + 1];
+        case "NEXT_STEP":
+          const nextStepRouteName = state.routeNames[state.index + 1];
 
-          if(!nextRouteName){
+          if(!nextStepRouteName){
             console.error('COULD NOT FIND NEXT SCREEN FOR CURRENT ROUTE');
             return;
           }
@@ -35,12 +36,12 @@ const FlowRouter = (options) => {
             {
               type: "NAVIGATE",
               source: action.source,
-              payload: { name: nextRouteName },
+              payload: { name: nextStepRouteName },
             },
             options
           );
 
-        case "BACK":
+        case "BACK_STEP":
           const previousRouteName = state.routeNames[state.index - 1];
 
           if(!previousRouteName){
@@ -65,9 +66,12 @@ const FlowRouter = (options) => {
 
     actionCreators: {
       ...router.actionCreators,
-      clearHistory() {
-        return { type: "CLEAR_HISTORY" };
+      goNextStep: () => {
+        return { type: 'NEXT_STEP' };
       },
+      goPreviousStep: () => {
+        return { type: 'BACK_STEP' };
+      }
     },
   };
 };
