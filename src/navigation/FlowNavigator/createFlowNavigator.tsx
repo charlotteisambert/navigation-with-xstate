@@ -129,8 +129,12 @@ function FlowNavigator({
       screenOptions,
     });
 
+  const { goPreviousStep, goNextStep } = navigation;
+
   return (
-    <FlowContext.Provider value={{ navigation }}>
+    <FlowContext.Provider
+      value={{ navigationState: state, goPreviousStep, goNextStep }}
+    >
       <NavigationContent>
         <NativeStackView
           {...rest}
@@ -151,20 +155,21 @@ export const createFlowNavigator = createNavigatorFactory<
 >(FlowNavigator);
 
 export interface FlowContext {
-  navigation: FlowNavigationProp<{}>;
+  navigationState: NavigationState;
+  goPreviousStep: () => void;
+  goNextStep: () => void;
 }
 
 export const FlowContext = React.createContext<FlowContext>({
-  navigation: null,
+  navigationState: null,
+  goPreviousStep: () => {},
+  goNextStep: () => {},
 });
 
 export const useFlowContext = () => React.useContext(FlowContext);
 
 export const useFlow = () => {
-  const {
-    navigation: { getState, goNextStep, goPreviousStep },
-  } = useFlowContext();
-  const navigationState = getState();
+  const { navigationState, goNextStep, goPreviousStep } = useFlowContext();
 
   return {
     currentStep: navigationState.routeNames[navigationState.index],
