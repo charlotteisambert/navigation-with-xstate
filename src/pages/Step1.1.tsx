@@ -7,9 +7,7 @@ import {
 import { FlowStackParamList } from "../navigation/FlowNavigator/FlowNavigator";
 
 export default function Step11() {
-  const { goNextStep } =
-    useNavigation<FlowNavigationProp<FlowStackParamList>>();
-  const { canGoPreviousStep, canGoNextStep, currentStep, progress  } = useFlow();
+  const { canGoPreviousStep, canGoNextStep, currentStep, progress, goNextStep  } = useFlow();
 
   return (
     <View style={styles.container}>

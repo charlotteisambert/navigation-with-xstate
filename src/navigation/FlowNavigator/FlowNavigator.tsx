@@ -7,10 +7,14 @@ import { FlowScreenProps, createFlowNavigator } from "./createFlowNavigator";
 import { useQuery } from "react-query";
 import { getHasToPassStep2, getHasToPassStep3 } from "../../queries";
 import { ActivityIndicator } from "react-native";
+import Step11 from "../../pages/Step1.1";
+import { Step21Page } from "./Step2/Step2.1Page";
+import { Step22Page } from "./Step2/Step2.2Page";
 
 export type FlowStackParamList = {
-  Step1Navigator: undefined;
-  Step2Navigator: undefined;
+  Step11: undefined;
+  Step21: undefined;
+  Step22: undefined;
   Step3Navigator: undefined;
   Step4Navigator: undefined;
 };
@@ -32,18 +36,35 @@ export const FlowNavigator = () => {
   }
 
   return (
-    <FlowStack.Navigator initialRouteName="Step1Navigator">
-      <FlowStack.Screen
-        name="Step1Navigator"
-        component={Step1Navigator}
-        options={{ headerShown: false }}
-      />
-      {hasToPassStep2 && (
+    <FlowStack.Navigator initialRouteName="Step11">
+      <FlowStack.Group
+        // name="Step1Navigator"
+        key="toto"
+        navigationKey="toto"
+        screenOptions={({ route, navigation }) => ({
+          title: "toto",
+        })}
+      >
         <FlowStack.Screen
-          name="Step2Navigator"
-          component={Step2Navigator}
+          name="Step11"
+          navigationKey="Step11"
+          component={Step11}
           options={{ headerShown: false }}
         />
+      </FlowStack.Group>
+      {hasToPassStep2 && (
+        <FlowStack.Group>
+          <FlowStack.Screen
+            name="Step21"
+            component={Step21Page}
+            options={{ headerShown: false }}
+          />
+          <FlowStack.Screen
+            name="Step22"
+            component={Step22Page}
+            options={{ headerShown: false }}
+          />
+        </FlowStack.Group>
       )}
       {hasToPassStep3 && (
         <FlowStack.Screen
