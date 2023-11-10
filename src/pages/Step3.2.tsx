@@ -6,7 +6,7 @@ import { FlowStackParamList } from "../navigation/FlowNavigator/FlowNavigator";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export const Step32 = () => {
-  const {goNextStep, replace} = useNavigation<FlowNavigationProp<FlowStackParamList> & NativeStackNavigationProp<Step3StackParamList>>();
+  const {goNextStep} = useNavigation<FlowNavigationProp<FlowStackParamList> & NativeStackNavigationProp<Step3StackParamList>>();
 
   return (
     <View style={styles.container}>
