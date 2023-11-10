@@ -4,7 +4,7 @@ import { Step2Navigator } from "./Step2/Step2Navigator";
 import { Step3Navigator } from "./Step3/Step3Navigator";
 import { Step4Navigator } from "./Step4/Step4Navigator";
 import { StateMachineProviderWrapper } from "../../stateMachine/StateMachineProviderWrapper";
-import { createFlowNavigator } from "./createFlowNavigator";
+import { FlowScreenProps, createFlowNavigator } from "./createFlowNavigator";
 
 export type FlowStackParamList = {
   Step1Navigator: undefined;
@@ -22,6 +22,11 @@ export const FlowNavigator = () => {
     </StateMachineProviderWrapper>
   );
 };
+
+
+export type AuthenticationNavigatorStackScreenProps<
+  Screen extends keyof FlowStackParamList
+> = FlowScreenProps<FlowStackParamList, Screen>;
 
 export const FlowPages = () => {
   return (

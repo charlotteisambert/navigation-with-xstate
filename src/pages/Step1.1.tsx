@@ -1,9 +1,11 @@
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { FlowNavigationProp } from "../navigation/FlowNavigator/createFlowNavigator";
+import { FlowStackParamList } from "../navigation/FlowNavigator/FlowNavigator";
 
 export default function Step11() {
 
-  const { goNextStep } = useNavigation();
+  const { goNextStep } = useNavigation<FlowNavigationProp<FlowStackParamList>>();
 
   return (
     <View style={styles.container}>
