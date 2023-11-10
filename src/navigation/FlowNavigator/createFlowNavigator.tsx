@@ -1,6 +1,8 @@
 import {
   createNavigatorFactory,
+  NavigationProp,
   ParamListBase,
+  RouteProp,
   StackActionHelpers,
   StackNavigationState,
   StackRouter,
@@ -15,6 +17,33 @@ import {
 import { NativeStackNavigatorProps } from "@react-navigation/native-stack/lib/typescript/src/types";
 import * as React from "react";
 
+export type FlowScreenProps<
+  ParamList extends ParamListBase,
+  RouteName extends keyof ParamList = string,
+  NavigatorID extends string | undefined = undefined
+> = {
+  navigation: FlowNavigationProp<ParamList, RouteName, NavigatorID>;
+  route: RouteProp<ParamList, RouteName>;
+};
+
+export type FlowNavigationProp<
+  ParamList extends ParamListBase,
+  RouteName extends keyof ParamList = string,
+  NavigatorID extends string | undefined = undefined
+> = NavigationProp<
+  ParamList,
+  RouteName,
+  NavigatorID,
+  StackNavigationState<ParamList>,
+  NativeStackNavigationOptions,
+  NativeStackNavigationEventMap
+> &
+  FlowActionHelpers<ParamList>;
+
+export type FlowActionHelpers<ParamList extends ParamListBase> = {
+  goNextStep(): void;
+  goPreviousStep(): void;
+} & StackActionHelpers<ParamList>;
 
 const FlowRouter = (options) => {
   const router = StackRouter(options);
@@ -26,8 +55,8 @@ const FlowRouter = (options) => {
         case "NEXT_STEP":
           const nextStepRouteName = state.routeNames[state.index + 1];
 
-          if(!nextStepRouteName){
-            console.error('COULD NOT FIND NEXT SCREEN FOR CURRENT ROUTE');
+          if (!nextStepRouteName) {
+            console.error("COULD NOT FIND NEXT SCREEN FOR CURRENT ROUTE");
             return;
           }
 
@@ -44,8 +73,8 @@ const FlowRouter = (options) => {
         case "BACK_STEP":
           const previousRouteName = state.routeNames[state.index - 1];
 
-          if(!previousRouteName){
-            console.error('COULD NOT FIND PREVIOUS SCREEN FOR CURRENT ROUTE');
+          if (!previousRouteName) {
+            console.error("COULD NOT FIND PREVIOUS SCREEN FOR CURRENT ROUTE");
             return;
           }
 
@@ -67,11 +96,11 @@ const FlowRouter = (options) => {
     actionCreators: {
       ...router.actionCreators,
       goNextStep: () => {
-        return { type: 'NEXT_STEP' };
+        return { type: "NEXT_STEP" };
       },
       goPreviousStep: () => {
-        return { type: 'BACK_STEP' };
-      }
+        return { type: "BACK_STEP" };
+      },
     },
   };
 };
@@ -88,7 +117,7 @@ function FlowNavigator({
     useNavigationBuilder<
       StackNavigationState<ParamListBase>,
       StackRouterOptions,
-      StackActionHelpers<ParamListBase>,
+      FlowActionHelpers<ParamListBase>,
       NativeStackNavigationOptions,
       NativeStackNavigationEventMap
     >(FlowRouter, {

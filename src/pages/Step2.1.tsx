@@ -2,9 +2,10 @@ import { Button, StyleSheet, Text, View } from "react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { Step2StackParamList } from "../navigation/FlowNavigator/Step2/Step2Navigator";
 import React from "react";
+import { FlowNavigationProp } from "../navigation/FlowNavigator/createFlowNavigator";
 
 export const Step21 = () => {
-  const navigation = useNavigation<NavigationProp<Step2StackParamList>>();
+  const navigation = useNavigation<FlowNavigationProp<Step2StackParamList>>();
 
   const goToNext = () => {
     navigation.navigate("Step22");
