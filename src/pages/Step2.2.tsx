@@ -7,11 +7,11 @@ import { postPassedStep2 } from "../queries";
 
 export const Step22 = () => {
   const navigation = useNavigation<NavigationProp<Step2StackParamList>>();
-  const { dispatch } = useNavigation();
+  const { goNextStep } = useNavigation();
 
   const { mutate } = useMutation("postHasToPassStep2", postPassedStep2, {
     onSuccess: () => {
-      dispatch({ type: "NEXT" });
+      goNextStep();
     },
   });
 

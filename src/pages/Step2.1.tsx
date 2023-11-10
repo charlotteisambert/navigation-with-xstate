@@ -11,7 +11,7 @@ export const Step21 = () => {
   };
 
   const goBack = () => {
-    navigation.dispatch({ type: "BACK" });
+    navigation.goPreviousStep()
   };
 
   return (

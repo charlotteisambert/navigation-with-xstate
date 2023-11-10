@@ -3,12 +3,12 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { Step3StackParamList } from "../navigation/FlowNavigator/Step3/Step3Navigator";
 
 export const Step32 = () => {
-  const {dispatch} = useNavigation<NavigationProp<Step3StackParamList>>();
+  const {goNextStep} = useNavigation<NavigationProp<Step3StackParamList>>();
 
   return (
     <View style={styles.container}>
       <Text style={{ fontSize:30}}>Step 3.2</Text>
-      <Button title="next" onPress={() => dispatch({type: "NEXT"})} />
+      <Button title="next" onPress={() => goNextStep()} />
     </View>
   );
 };
