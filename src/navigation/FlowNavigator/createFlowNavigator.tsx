@@ -94,7 +94,6 @@ const FlowRouter = (options) => {
           return router.getStateForAction(state, action, options);
       }
     },
-
     actionCreators: {
       ...router.actionCreators,
       goNextStep: () => {
@@ -133,7 +132,7 @@ function FlowNavigator({
       screenOptions,
     });
 
-  const { goPreviousStep, goNextStep, quitFlow, goBack, getParent } =
+  const { goPreviousStep, goNextStep, getParent } =
     navigation;
 
   return (
